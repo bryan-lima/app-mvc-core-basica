@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppMvcCoreBasica.Data;
 using AppMvcCoreBasica.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AppMvcCoreBasica.Controllers
 {
+    [Authorize]
     public class ProdutosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace AppMvcCoreBasica.Controllers
         }
 
         // GET: Produtos
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Produtos.Include(p => p.Fornecedor);
@@ -27,6 +30,7 @@ namespace AppMvcCoreBasica.Controllers
         }
 
         // GET: Produtos/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
